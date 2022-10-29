@@ -1,0 +1,14 @@
+{
+    "name": "active-git",
+    "version": "1.0.0",
+    "description": "Keeps a folder on your machine  updated with active git repos.",
+    "main": "index.js",
+    "scripts": {
+        "test": "test"
+    },
+    "author": "Benjamin Wright",
+    "license": "MIT",
+    "bin": {
+        "active-git": "bin/index.js"
+    }
+}
