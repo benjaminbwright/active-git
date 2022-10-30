@@ -46,7 +46,7 @@ const getRepos = async (user, configData) => {
     open_issues
   })));
 
-  cloneRepos(combinedRepos, configData.clonedRepos)
+  cloneRepos(combinedRepos,  getLocalDirectories("./"), configData)
 }
 
 /**
@@ -129,7 +129,7 @@ const configData = getConfig() || {
     "active"
   ],
   forks: false,
-  exclude: []
+  excludedRepos: []
 }
 console.log("Active git running.")
-getRepos(configData.username, getLocalDirectories(), configData);
+getRepos(configData.username, configData);
