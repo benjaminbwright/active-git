@@ -108,7 +108,6 @@ const cloneRepos = (repos, directories, { excludedRepos }) => {
     }
   }
 
-  configData.clonedRepos = repoNames
   updateConfig(configData);
 }
 
