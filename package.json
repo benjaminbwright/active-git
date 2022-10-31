@@ -3,6 +3,10 @@
     "version": "1.0.2",
     "description": "Keeps a folder on your machine  updated with active git repos.",
     "main": "index.js",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/benjaminbwright/active-git.git"
+    },
     "scripts": {
         "test": "test"
     },
