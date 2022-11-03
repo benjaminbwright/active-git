@@ -30,6 +30,14 @@ npm install -g active-git
 ```
 ## Usage
 
+### Clone Your Active Repos To A Directory
+
+1. `mkdir your-directory && cd your-directory`
+
+2. Run `active-git <github username>` inside the folder to get clones of your most relevant git repos.
+
+### Use A Config File
+
 1. `mkdir your-directory && cd your-directory`
 
 2. Create a config.yml with content that looks like this: 
@@ -50,8 +58,13 @@ excludedRepos:
   - <repo name>
 ```
 
-2. Run `npx active-git <github username>` to get clones of your most relevant git repos.
+2. Run `active-git` inside the folder to get clones of your most relevant git repos.
 
+### Run As A Service (Mac only...for now)
+
+1. `cd your-directory`
+
+2. `active-git init-service`
 
 ## License
 MIT
