@@ -10,7 +10,7 @@
     "scripts": {
         "test": "test",
         "build": "tsc",
-        "prepublishOnly": "npm build"
+        "prepublishOnly": "npm run build"
     },
     "author": "Benjamin Wright",
     "license": "MIT",
