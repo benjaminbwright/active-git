@@ -10,31 +10,30 @@ import {
 } from "fs"
 import YAML from 'yaml'
 
-
 // FUNCTIONS
 /**
  * Gets all the repositories for a user
  * @param {string} user github username
  */
-export const getRepos = async (user, configData) => {
+export const getRepos = async (user: any, configData: any) => {
   // let { data: user } = await axios.get(`https://api.github.com/users/${user}/repos?per_page=1001`)
   let { data: repos } = await axios.get(`https://api.github.com/users/${user}/repos?per_page=1001`)
   // console.log(repos)
   if (!configData.forks) {
     repos = notForks(repos);
   }
-  const watched = minWatchersOnly(repos, configData.minWatchers);
+  const watched: any = minWatchersOnly(repos, configData.minWatchers);
   // don't include forks
-  const starred = minStarsOnly(repos, configData.minStars)
+  const starred: any = minStarsOnly(repos, configData.minStars)
   // only include repose with active issues
   const withIssues = openIssues(repos);
-  let combinedRepos = [
-    ...new Set([
+  let combinedRepos = Array.from(
+    new Set<any>([
       ...starred,
       ...watched,
       ...withIssues
     ])
-  ]
+  )
   
 
   cloneRepos(combinedRepos,  getLocalDirectories("./"), configData)
@@ -44,42 +43,42 @@ export const getRepos = async (user, configData) => {
  * Returns a list of github repos that have been starred
  * @param {Array} repos a list of repos
  * @returns {Array} repos with a stargazers
- */
-export const minStarsOnly = (repos, minStars) => repos.filter(({ stargazers_count }) => stargazers_count >= minStars)
+ */ 
+export const minStarsOnly = (repos: any, minStars: number) => repos.filter(({ stargazers_count }: { stargazers_count: number }) => stargazers_count >= minStars)
 
 /**
  * Returns a list of github repos that have been watched
  * @param {Array} repos a list of repos
  * @returns {Array}
  */
-export const minWatchersOnly = (repos, minWatchers) => repos.filter(({ watchers_count }) => watchers_count >= minWatchers)
+export const minWatchersOnly = (repos: any, minWatchers: number) => repos.filter(({ watchers_count }: { watchers_count: Number}) => watchers_count >= minWatchers)
 
 /**
  * Returns a list of github repos with open issues
  * @param {Array} repos a list of repos
  * @returns {Array}
  */
-export const openIssues = repos => repos.filter(({ open_issues }) => open_issues > 0)
+export const openIssues = (repos: any) => repos.filter(({ open_issues }: { open_issues: number }) => open_issues > 0)
 
 /**
  * Returns a list of github repos with a topic of "active"
  * @param {Array} repos a list of repos
  * @returns {Array}
  */
-export const activeOnly = repos => repos.filter(({ topics }) => topics.includes("active"))
+export const activeOnly = (repos: any) => repos.filter(({ topics } : { topics: Array<string> }) => topics.includes("active"))
 
 /**
  * Returns a list of github repos that have not been forked
  * @param {Array} repos a list of repos
  * @returns {Array}
  */
-export const notForks = repos => repos.filter(({fork}) => !fork )
+export const notForks = (repos: any) => repos.filter(({fork} : {fork: boolean}) => !fork )
 
 /**
  * Clones a list of github repos
  * @param {Array} repos 
  */
-export const cloneRepos = (repos, directories, { excludedRepos }) => {
+export const cloneRepos = (repos: Array<any>, directories: Array<string>, { excludedRepos }: {excludedRepos: Array<any>}) => {
 
   const repoNames = repos.map(({ name }) => name)
 
@@ -102,11 +101,11 @@ export const cloneRepos = (repos, directories, { excludedRepos }) => {
   updateConfig(configData);
 }
 
-export const getLocalDirectories = source => readdirSync(source, { withFileTypes: true })
+export const getLocalDirectories = (source: string) => readdirSync(source, { withFileTypes: true })
     .filter(dirent => dirent.isDirectory())
     .map(dirent => dirent.name)
 
-export const updateConfig = (config) => writeFileSync("config.yml", YAML.stringify(config), "utf8")
+export const updateConfig = (config: any) => writeFileSync("config.yml", YAML.stringify(config), "utf8")
 
 export const getConfig = () => {
 
