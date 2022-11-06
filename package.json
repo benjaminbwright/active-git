@@ -8,7 +8,7 @@
         "url": "https://github.com/benjaminbwright/active-git.git"
     },
     "scripts": {
-        "test": "test",
+        "test": "jest",
         "dev": "tsc --watch",
         "build": "tsc",
         "prepublishOnly": "npm run build"
