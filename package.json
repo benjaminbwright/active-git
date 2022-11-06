@@ -1,6 +1,6 @@
 {
     "name": "active-git",
-    "version": "1.1.3",
+    "version": "1.3.0",
     "description": "Keeps a folder on your machine  updated with active git repos.",
     "main": "index.js",
     "repository": {
@@ -8,9 +8,10 @@
         "url": "https://github.com/benjaminbwright/active-git.git"
     },
     "scripts": {
-        "test": "test",
+        "test": "jest",
+        "dev": "tsc --watch",
         "build": "tsc",
-        "prepublishOnly": "npm build"
+        "prepublishOnly": "npm run build"
     },
     "author": "Benjamin Wright",
     "license": "MIT",
@@ -25,7 +26,9 @@
         "yaml": "^2.1.3"
     },
     "devDependencies": {
+        "@types/jest": "^29.2.2",
         "jest": "^29.2.2",
+        "ts-jest": "^29.0.3",
         "ts-node": "^10.9.1",
         "tslib": "^2.4.1",
         "typescript": "^4.8.4"

@@ -1,7 +1,10 @@
 #!/usr/bin/env node
 import {
   getRepos,
+  filterRepos,
+  cloneRepos,
   configData,
+  getLocalDirectories
 } from "../lib/repos.js"
 import {
   initService,
@@ -30,6 +33,8 @@ switch (args[0]) {
     removeService();
   default: 
     console.log("Active git running.")
-    getRepos(configData.username, configData);
+    let repos: any = getRepos(configData.username);
+    repos = filterRepos(repos, configData);
+    cloneRepos(repos,  getLocalDirectories("./"), configData)
     break;
 }

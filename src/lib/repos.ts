@@ -15,30 +15,34 @@ import YAML from 'yaml'
  * Gets all the repositories for a user
  * @param {string} user github username
  */
-export const getRepos = async (user: any, configData: any) => {
-  // let { data: user } = await axios.get(`https://api.github.com/users/${user}/repos?per_page=1001`)
+export const getRepos = async (user: any) => {
   let { data: repos } = await axios.get(`https://api.github.com/users/${user}/repos?per_page=1001`)
-  // console.log(repos)
+  
+  return repos || new Array();
+}
+
+export const filterRepos = (repos: any, configData: any) => {
   if (!configData.forks) {
     repos = notForks(repos);
   }
-  const watched: any = minWatchersOnly(repos, configData.minWatchers);
+  // repos with a minimum number of watchers
+  const watched: any = minWatchersOnly(repos, configData.minWatchers)
   // don't include forks
   const starred: any = minStarsOnly(repos, configData.minStars)
   // only include repose with active issues
-  const withIssues = openIssues(repos);
-  let combinedRepos = Array.from(
+  const withIssues: any = openIssues(repos)
+  
+  // all the filtered repos combined without dupes
+  let filteredRepos = Array.from(
     new Set<any>([
       ...starred,
       ...watched,
       ...withIssues
     ])
   )
-  
 
-  cloneRepos(combinedRepos,  getLocalDirectories("./"), configData)
+  return filteredRepos;
 }
-
 /**
  * Returns a list of github repos that have been starred
  * @param {Array} repos a list of repos
@@ -108,7 +112,6 @@ export const getLocalDirectories = (source: string) => readdirSync(source, { wit
 export const updateConfig = (config: any) => writeFileSync("config.yml", YAML.stringify(config), "utf8")
 
 export const getConfig = () => {
-
   if (existsSync("config.yml")) {
     return YAML.parse(readFileSync("config.yml", "utf8"))
   }
