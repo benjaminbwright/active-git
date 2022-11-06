@@ -15,7 +15,7 @@ import YAML from 'yaml'
  * Gets all the repositories for a user
  * @param {string} user github username
  */
-export const getRepos = async (user: any) => {
+export const getRepos = async (user: string): Promise<Array<any>> => {
   let { data: repos } = await axios.get(`https://api.github.com/users/${user}/repos?per_page=1001`)
   
   return repos || new Array();
