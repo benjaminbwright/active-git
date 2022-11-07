@@ -30,17 +30,19 @@ npm install -g active-git
 ```
 ## Usage
 
-### Clone Your Active Repos To A Directory
+### Run it with just your github username
 
-1. `mkdir your-directory && cd your-directory`
-
-2. Run `active-git <github username>` inside the folder to get clones of your most relevant git repos.
+```bash
+mkdir your-directory && cd your-directory
+```
+and then...
+```
+active-git <github username>
+```
+Your repos will be cloned to your folder along with a config.yml defining the default configs.
 
 ### Use A Config File
-
-1. `mkdir your-directory && cd your-directory`
-
-2. Create a config.yml with content that looks like this: 
+To change which repos are included by active-git just modify the defaults in the config.yml. It should look something like this: 
 ```yaml
 # github username
 username: <username>
@@ -58,19 +60,27 @@ excludedRepos:
   - <repo name>
 ```
 
-2. Run `active-git` inside the folder to get clones of your most relevant git repos.
+After saving changes to the config, run
+
+```bash
+active-git
+```
 
 ### Run As A Service (Mac only...for now)
 
-1. `cd your-directory`
-
-2. `active-git init-service`
+```bash
+active-git init-service
+```
+### Uninstall the service
+```bash
+active-git remove-service
+```
 
 ## License
 MIT
 
 ## Contributing
-Please submit an issue [Here](https://github.com/benjaminbwright/active-git), and leave note whether or not you would be interested in helping to fix the bug or add the feature.
+Please submit an issue [Here](https://github.com/benjaminbwright/active-git) if you find a bug or would like to request a feature. Otherwise, fork the repo and send in pull requests if you would like to contribute.
 
 ## Questions
 Please email me at benjamin@famousstick.com if you have any questions about this package.
