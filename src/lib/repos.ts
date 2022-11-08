@@ -20,8 +20,7 @@ export const getRepos = async (user: string): Promise<Array<any>> => {
   return repos || new Array([]);
 }
 
-export const filterRepos = (repos: any, configData: any) => {
-  console.log(repos)
+export const filterRepos = (repos: Array<any>, configData: any) => {
   if (!configData.forks) {
     repos = notForks(repos);
   }
@@ -89,8 +88,10 @@ export const cloneRepos = (repos: Array<any>, directories: Array<string>, { excl
   // remove repos that are not included in the repo list
   for (const directory of directories) {
     if (!repoNames.includes(directory) && !excludedRepos.includes(directory)) {
-      console.log(`Removing ${directory}`)
-      rmSync(directory, { recursive: true, force: true })
+      if (!hasUntrackedChanges(directory)) {        
+        console.log(`Removing ${directory}`)
+        rmSync(directory, { recursive: true, force: true })
+      }
     }
   }
 
@@ -103,6 +104,16 @@ export const cloneRepos = (repos: Array<any>, directories: Array<string>, { excl
   }
 
   updateConfig(configData);
+}
+
+export const hasUntrackedChanges = (directory: string) => {
+  try {
+    const gitStatus = execSync(`git --git-dir=./${directory}/.git --work-tree=./${directory} status
+    `).toString();
+    return !gitStatus.includes("nothing to commit, working tree clean")
+  } catch (err: any) {
+    console.log(err.message)
+  }
 }
 
 export const getLocalDirectories = (source: string) => readdirSync(source, { withFileTypes: true })
