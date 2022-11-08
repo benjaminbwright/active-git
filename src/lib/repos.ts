@@ -17,11 +17,11 @@ import YAML from 'yaml'
  */
 export const getRepos = async (user: string): Promise<Array<any>> => {
   let { data: repos } = await axios.get(`https://api.github.com/users/${user}/repos?per_page=1001`)
-  
-  return repos || new Array();
+  return repos || new Array([]);
 }
 
 export const filterRepos = (repos: any, configData: any) => {
+  console.log(repos)
   if (!configData.forks) {
     repos = notForks(repos);
   }
@@ -69,14 +69,14 @@ export const openIssues = (repos: any) => repos.filter(({ open_issues }: { open_
  * @param {Array} repos a list of repos
  * @returns {Array}
  */
-export const activeOnly = (repos: any) => repos.filter(({ topics } : { topics: Array<string> }) => topics.includes("active"))
+export const activeOnly = (repos: any): Array<any> => repos.filter(({ topics } : { topics: Array<string> }) => topics.includes("active"))
 
 /**
  * Returns a list of github repos that have not been forked
  * @param {Array} repos a list of repos
  * @returns {Array}
  */
-export const notForks = (repos: any) => repos.filter(({fork} : {fork: boolean}) => !fork )
+export const notForks = (repos: any): Array<any> => repos.filter(({fork} : {fork: boolean}) => !fork )
 
 /**
  * Clones a list of github repos

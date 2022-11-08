@@ -11,30 +11,31 @@ import {
   removeService
 } from "../lib/initService.js"
 
-// console.log(process.platform)
-// console.log(process.argv)
-// console.log(process.env)
+const runCLI = async () => {
+  const args = process.argv.slice(2);
 
-const args = process.argv.slice(2);
-
-switch (args[0]) {
-  case "init":
-  case "init-config":
-    console.log("Running init script");
-    break;
-  case "start-service":
-  case "init-service":
-    console.log("Setting up service");
-    initService();
-    break;
-  case "remove-service":
-  case "stop-service":
-    console.log("Removing active-git service");
-    removeService();
-  default: 
-    console.log("Active git running.")
-    let repos: any = getRepos(configData.username);
-    repos = filterRepos(repos, configData);
-    cloneRepos(repos,  getLocalDirectories("./"), configData)
-    break;
+  switch (args[0]) {
+    case "init":
+    case "init-config":
+      console.log("Running init script");
+      break;
+    case "start-service":
+    case "init-service":
+      console.log("Setting up service");
+      initService();
+      break;
+    case "remove-service":
+    case "stop-service":
+      console.log("Removing active-git service");
+      removeService();
+    default: 
+      console.log("Active git running.")
+      let repos: any = await getRepos(configData.username);
+      repos = filterRepos(repos, configData);
+      const localDirectories = getLocalDirectories("./")
+      cloneRepos(repos,  localDirectories, configData)
+      break;
+  }
 }
+
+runCLI();
