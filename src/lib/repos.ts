@@ -16,7 +16,7 @@ import YAML from 'yaml'
  * @param {string} user github username
  */
 export const getRepos = async (user: string): Promise<Array<any>> => {
-  let { data: repos } = await axios.get(`https://api.github.com/users/${user}/repos?per_page=1001`)
+  let { data: repos } = await axios.get(`https://api.github.com/users/${user}/repos?per_page=100&type=all`)
   return repos || new Array([]);
 }
 
