@@ -88,7 +88,7 @@ export const notForks = (repos: any): Array<any> => repos.filter(({fork} : {fork
  * @param {Array} repos 
  */
 export const cloneRepos = (repos: Array<any>, directories: Array<string>, { excludedRepos }: {excludedRepos: Array<any>}) => {
-
+  console.log("repos", repos)
   const repoNames = repos.map(({ name }) => name)
 
   // remove repos that are not included in the repo list
