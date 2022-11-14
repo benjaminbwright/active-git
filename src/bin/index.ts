@@ -10,6 +10,9 @@ import {
   initService,
   removeService
 } from "../lib/initService.js"
+import {
+  initConfig
+} from "../lib/init"
 
 const runCLI = async () => {
   const args = process.argv.slice(2);
@@ -18,6 +21,7 @@ const runCLI = async () => {
     case "init":
     case "init-config":
       console.log("Running init script");
+      initConfig();
       break;
     case "start-service":
     case "init-service":
