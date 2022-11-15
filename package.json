@@ -1,6 +1,6 @@
 {
     "name": "active-git",
-    "version": "1.4.0",
+    "version": "1.5.0",
     "description": "Keeps a folder on your machine  updated with active git repos.",
     "main": "index.js",
     "repository": {
