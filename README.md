@@ -42,10 +42,16 @@ active-git <github username>
 Your repos will be cloned to your folder along with a config.yml defining the default configs.
 
 ### Use A Config File
-To change which repos are included by active-git just modify the defaults in the config.yml. It should look something like this: 
+To change which repos are included by active-git just modify the defaults in the config.yml. You can generate it with this command:
+```bash
+active-git init
+```
+It should look something like this: 
 ```yaml
 # github username
 username: <username>
+# ssh clones
+ssh: true
 # minimum number of stars a repo needs to be included
 minStars: 1
 # minimum number of watchers a repo needs to be included
