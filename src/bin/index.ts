@@ -36,6 +36,7 @@ const runCLI = async () => {
       console.log("Active git running.")
       let repos: any = await getRepos(configData.username);
       repos = filterRepos(repos, configData);
+      console.log(repos)
       const localDirectories = getLocalDirectories("./")
       cloneRepos(repos,  localDirectories, configData)
       break;
