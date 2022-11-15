@@ -87,7 +87,7 @@ export const notForks = (repos: any): Array<any> => repos.filter(({fork} : {fork
  * Clones a list of github repos
  * @param {Array} repos 
  */
-export const cloneRepos = (repos: Array<any>, directories: Array<string>, { excludedRepos }: {excludedRepos: Array<any>}) => {
+export const cloneRepos = (repos: Array<any>, directories: Array<string>, { ssh, excludedRepos }: {ssh: boolean, excludedRepos: Array<any>}) => {
   console.log("repos", repos)
   const repoNames = repos.map(({ name }) => name)
 
@@ -103,9 +103,10 @@ export const cloneRepos = (repos: Array<any>, directories: Array<string>, { excl
 
   // clone repos from the repo list
   for (const repo of repos) {
+    const url = ssh ? repo.ssh_url : repo.clone_url
     // only clone a repo if it's not already cloned and not on the excluded list
     if (!directories.includes(repo.name) && !excludedRepos.includes(repo.name)) {
-      execSync(`git clone ${repo.ssh_url}`, { stdio: "inherit"});
+      execSync(`git clone ${url}`, { stdio: "inherit"});
     }
   }
 

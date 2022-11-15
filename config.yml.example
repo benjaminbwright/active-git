@@ -1,5 +1,7 @@
 # github username
 username: <username>
+# using ssh
+ssh: false
 # minimum number of stars a repo needs to be included
 minStars: 1
 # minimum number of watchers a repo needs to be included
